@@ -1,56 +1,30 @@
-# Autoprefixer [![Cult Of Martians][cult-img]][cult]
+# Update Browserslist DB
 
-<img align="right" width="94" height="71"
-     src="https://postcss.github.io/autoprefixer/logo.svg"
-     title="Autoprefixer logo by Anton Lovchikov">
+<img width="120" height="120" alt="Browserslist logo by Anton Popov"
+     src="https://browsersl.ist/logo.svg" align="right">
 
-[PostCSS] plugin to parse CSS and add vendor prefixes to CSS rules using values
-from [Can I Use]. It is recommended by Google and used in Twitter and Alibaba.
+CLI tool to update `caniuse-lite` with browsers DB
+from [Browserslist](https://github.com/browserslist/browserslist/) config.
 
-Write your CSS rules without vendor prefixes (in fact, forget about them
-entirely):
+Some queries like `last 2 versions` or `>1%` depend on actual data
+from `caniuse-lite`.
 
-```css
-::placeholder {
-  color: gray;
-}
-
-.image {
-  width: stretch;
-}
+```sh
+npx update-browserslist-db@latest
+```
+Or if using `pnpm`:
+```sh
+pnpm exec update-browserslist-db latest
+```
+Or if using `yarn`:
+```sh
+yarn dlx update-browserslist-db@latest
 ```
 
-Autoprefixer will use the data based on current browser popularity and property
-support to apply prefixes for you. You can try the [interactive demo]
-of Autoprefixer.
-
-```css
-::-moz-placeholder {
-  color: gray;
-}
-::placeholder {
-  color: gray;
-}
-
-.image {
-  width: -webkit-fill-available;
-  width: -moz-available;
-  width: stretch;
-}
-```
-
-Twitter account for news and releases: [@autoprefixer].
-
-<a href="https://evilmartians.com/?utm_source=autoprefixer">
-<img src="https://evilmartians.com/badges/sponsored-by-evil-martians.svg" alt="Sponsored by Evil Martians" width="236" height="54">
+<a href="https://evilmartians.com/?utm_source=update-browserslist-db">
+  <img src="https://evilmartians.com/badges/sponsored-by-evil-martians.svg"
+       alt="Sponsored by Evil Martians" width="236" height="54">
 </a>
 
-[interactive demo]: https://autoprefixer.github.io/
-[@autoprefixer]: https://twitter.com/autoprefixer
-[Can I Use]: https://caniuse.com/
-[cult-img]: https://cultofmartians.com/assets/badges/badge.svg
-[PostCSS]: https://github.com/postcss/postcss
-[cult]: https://cultofmartians.com/tasks/autoprefixer-grid.html
-
 ## Docs
-Read full docs **[here](https://github.com/postcss/autoprefixer#readme)**.
+Read full docs **[here](https://github.com/browserslist/update-db#readme)**.
