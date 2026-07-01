@@ -1,0 +1,45 @@
+<nav class="bg-white border-b border-gray-100 py-3 sticky top-0 z-50">
+  <div class="container mx-auto px-6 flex justify-between items-center">
+    
+    <div class="flex items-center gap-2 cursor-pointer" routerLink="/inicio">
+      <div class="bg-emerald-600 text-white p-2 rounded-xl flex items-center justify-center shadow-sm">
+        <span>♻️</span>
+      </div>
+      <span class="text-xl font-bold text-gray-800 tracking-tight">Eco-Reciclaje</span>
+    </div>
+
+    <ul class="flex items-center gap-1 font-medium text-gray-600 bg-gray-50 p-1 rounded-xl border border-gray-100">
+      <li>
+        <a routerLink="/inicio" routerLinkActive="bg-emerald-50 text-emerald-700 border-emerald-100" class="flex items-center gap-1.5 px-4 py-2 rounded-lg text-sm transition cursor-pointer">
+          🏠 Inicio
+        </a>
+      </li>
+      <li>
+        <a routerLink="/publicar" routerLinkActive="bg-emerald-50 text-emerald-700 border-emerald-100" class="flex items-center gap-1.5 px-4 py-2 rounded-lg text-sm transition cursor-pointer">
+          ➕ Publicar
+        </a>
+      </li>
+      <li>
+        <a routerLink="/historial" routerLinkActive="bg-emerald-50 text-emerald-700 border-emerald-100" class="flex items-center gap-1.5 px-4 py-2 rounded-lg text-sm transition cursor-pointer">
+          ⏳ Historial
+        </a>
+      </li>
+      <li>
+        <a routerLink="/perfil" routerLinkActive="bg-emerald-50 text-emerald-700 border-emerald-100" class="flex items-center gap-1.5 px-4 py-2 rounded-lg text-sm transition cursor-pointer">
+          👤 Perfil
+        </a>
+      </li>
+    </ul>
+
+    <div class="flex items-center">
+      <span class="bg-emerald-50 text-emerald-700 border border-emerald-100 text-xs font-bold px-3 py-1 rounded-full">
+        User
+      </span>
+    </div>
+
+  </div>
+</nav>
+
+<main class="bg-gray-50/50 min-h-[calc(100vh-69px)]">
+  <router-outlet></router-outlet>
+</main>

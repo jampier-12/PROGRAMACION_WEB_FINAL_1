@@ -1,0 +1,11 @@
+/* Contenedor principal de la pestaña de Inicio */
+.inicio-container {
+    padding-top: 90px; /* <- Este es el truco: empuja todo el contenido hacia abajo dejando libre el menú */
+    min-height: 100vh;
+    background-color: #f8f9fa; /* Un fondo gris claro elegante */
+}
+
+/* Por si acaso el banner verde necesita espacio extra */
+.welcome-banner, .banner-verde {
+    margin-top: 15px;
+}

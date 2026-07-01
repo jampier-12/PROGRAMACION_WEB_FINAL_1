@@ -1,0 +1,117 @@
+<div class="container mx-auto px-4 py-8 max-w-2xl">
+  
+  <div class="flex items-center gap-3 mb-6">
+    <button routerLink="/inicio" class="text-gray-500 hover:text-gray-700 text-lg transition">
+      ⬅
+    </button>
+    <div>
+      <h2 class="text-xl font-bold text-gray-800">Publicar reciclables</h2>
+      <p class="text-xs text-gray-400 mt-0.5">Indica qué materiales tienes disponibles</p>
+    </div>
+  </div>
+
+  <form [formGroup]="formularioSolicitud" (ngSubmit)="enviarSolicitud()" class="space-y-6">
+    
+    <div class="bg-white border border-gray-100 rounded-2xl p-6 shadow-sm">
+      <div class="flex items-center gap-2 text-emerald-700 text-sm font-bold mb-4">
+        <span>📍</span> Ubicación
+      </div>
+      
+      <div class="space-y-4">
+        <div>
+          <label class="block text-xs font-bold text-gray-500 uppercase tracking-wider mb-2">Dirección</label>
+          <input type="text" formControlName="direccion" placeholder="Ej: Av. Huancavelica 1234" 
+            class="w-full px-4 py-2.5 rounded-xl border border-gray-200 text-sm outline-none focus:border-emerald-500 transition">
+        </div>
+        
+        <div>
+          <label class="block text-xs font-bold text-gray-500 uppercase tracking-wider mb-2">Distrito</label>
+          <select formControlName="distrito" class="w-full px-4 py-2.5 rounded-xl border border-gray-200 text-sm outline-none focus:border-emerald-500 bg-white transition">
+            <option value="" disabled selected>Selecciona distrito</option>
+            <option value="huancayo">Huancayo</option>
+            <option value="el-tambo">El Tambo</option>
+            <option value="chilca">Chilca</option>
+          </select>
+        </div>
+
+        <div class="pt-2">
+          <label class="block text-xs font-bold text-gray-500 uppercase tracking-wider mb-2">Selecciona tu ubicación exacta</label>
+          <div id="map" class="w-full h-64 rounded-xl border border-gray-200 shadow-inner z-0" style="min-height: 260px;"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="bg-white border border-gray-100 rounded-2xl p-6 shadow-sm">
+      <div class="flex items-center gap-2 text-emerald-700 text-sm font-bold mb-4">
+        <span>📦</span> Materiales disponibles
+      </div>
+      
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-4">
+        
+        <label class="flex items-center gap-3 px-4 py-3 rounded-xl border border-gray-200 cursor-pointer select-none transition hover:bg-gray-50 text-sm text-gray-700">
+          <input type="checkbox" formControlName="plastico" class="w-4 h-4 rounded text-emerald-600 focus:ring-emerald-500 border-gray-300">
+          Plástico
+        </label>
+
+        <label class="flex items-center gap-3 px-4 py-3 rounded-xl border border-gray-200 cursor-pointer select-none transition hover:bg-gray-50 text-sm text-gray-700">
+          <input type="checkbox" formControlName="carton" class="w-4 h-4 rounded text-emerald-600 focus:ring-emerald-500 border-gray-300">
+          Cartón
+        </label>
+
+        <label class="flex items-center gap-3 px-4 py-3 rounded-xl border border-gray-200 cursor-pointer select-none transition hover:bg-gray-50 text-sm text-gray-700">
+          <input type="checkbox" formControlName="vidrio" class="w-4 h-4 rounded text-emerald-600 focus:ring-emerald-500 border-gray-300">
+          Vidrio
+        </label>
+
+        <label class="flex items-center gap-3 px-4 py-3 rounded-xl border border-gray-200 cursor-pointer select-none transition hover:bg-gray-50 text-sm text-gray-700">
+          <input type="checkbox" formControlName="metal" class="w-4 h-4 rounded text-emerald-600 focus:ring-emerald-500 border-gray-300">
+          Metal/Latas
+        </label>
+
+        <label class="flex items-center gap-3 px-4 py-3 rounded-xl border border-gray-200 cursor-pointer select-none transition hover:bg-gray-50 text-sm text-gray-700">
+          <input type="checkbox" formControlName="papel" class="w-4 h-4 rounded text-emerald-600 focus:ring-emerald-500 border-gray-300">
+          Papel
+        </label>
+
+        <label class="flex items-center gap-3 px-4 py-3 rounded-xl border border-gray-200 cursor-pointer select-none transition hover:bg-gray-50 text-sm text-gray-700">
+          <input type="checkbox" formControlName="electronicos" class="w-4 h-4 rounded text-emerald-600 focus:ring-emerald-500 border-gray-300">
+          Electrónicos
+        </label>
+
+        <label class="flex items-center gap-3 px-4 py-3 rounded-xl border border-gray-200 cursor-pointer select-none transition hover:bg-gray-50 text-sm text-gray-700 sm:col-span-2">
+          <input type="checkbox" formControlName="textiles" class="w-4 h-4 rounded text-emerald-600 focus:ring-emerald-500 border-gray-300">
+          Textiles
+        </label>
+
+      </div>
+
+      <div class="mt-4">
+        <label class="block text-xs font-bold text-gray-500 uppercase tracking-wider mb-2">Cantidad estimada (kg)</label>
+        <input type="number" formControlName="cantidad" placeholder="Ej: 5" 
+          class="w-full px-4 py-2.5 rounded-xl border border-gray-200 text-sm outline-none focus:border-emerald-500 transition">
+      </div>
+    </div>
+
+    <div class="bg-white border border-gray-100 rounded-2xl p-6 shadow-sm space-y-4">
+      <div>
+        <label class="block text-xs font-bold text-gray-500 uppercase tracking-wider mb-2">Foto del material (opcional)</label>
+        <div class="border-2 border-dashed border-gray-200 rounded-xl p-6 text-center cursor-pointer hover:bg-gray-50/50 transition">
+          <span class="text-xl block mb-1">📤</span>
+          <span class="text-xs text-emerald-600 font-bold">Seleccionar foto</span>
+        </div>
+      </div>
+
+      <div>
+        <label class="block text-xs font-bold text-gray-500 uppercase tracking-wider mb-2">Notas adicionales</label>
+        <textarea formControlName="notas" rows="3" placeholder="Ej: Las botellas están limpias y separadas" 
+          class="w-full px-4 py-2.5 rounded-xl border border-gray-200 text-sm outline-none focus:border-emerald-500 transition resize-none"></textarea>
+      </div>
+    </div>
+
+    <button type="submit" 
+      class="w-full bg-emerald-600 text-white text-sm font-bold py-3.5 px-4 rounded-xl hover:bg-emerald-700 transition shadow-md shadow-emerald-700/10 flex items-center justify-center gap-2">
+      🚀 Publicar solicitud
+    </button>
+
+  </form>
+</div>

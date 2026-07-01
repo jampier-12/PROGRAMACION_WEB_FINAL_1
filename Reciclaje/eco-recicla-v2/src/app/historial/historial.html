@@ -1,0 +1,84 @@
+<div class="container mx-auto px-4 py-8 max-w-4xl">
+  
+  <div class="flex justify-between items-center mb-6">
+    <div>
+      <h2 class="text-2xl font-black text-gray-800">Mis solicitudes</h2>
+      <p class="text-xs text-gray-400 mt-0.5">{{ solicitudesFiltradas.length }} solicitudes encontradas</p>
+    </div>
+    <button routerLink="/publicar" class="bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs px-4 py-2 rounded-xl transition shadow-sm flex items-center gap-1">
+      ➕ Nueva
+    </button>
+  </div>
+
+  <div class="bg-gray-100 p-1 rounded-xl border border-gray-200/50 flex gap-1 mb-8 overflow-x-auto">
+    <button (click)="cambiarFiltro('todas')" 
+      [class]="filtroActivo === 'todas' ? 'bg-white text-gray-800 shadow-sm' : 'text-gray-500 hover:text-gray-800'"
+      class="flex-1 text-center py-2 rounded-lg text-xs font-bold transition min-w-[90px]">
+      Todas
+    </button>
+    <button (click)="cambiarFiltro('disponibles')" 
+      [class]="filtroActivo === 'disponibles' ? 'bg-white text-gray-800 shadow-sm' : 'text-gray-500 hover:text-gray-800'"
+      class="flex-1 text-center py-2 rounded-lg text-xs font-bold transition min-w-[90px]">
+      Disponibles
+    </button>
+    <button (click)="cambiarFiltro('asignadas')" 
+      [class]="filtroActivo === 'asignadas' ? 'bg-white text-gray-800 shadow-sm' : 'text-gray-500 hover:text-gray-800'"
+      class="flex-1 text-center py-2 rounded-lg text-xs font-bold transition min-w-[90px]">
+      Asignadas
+    </button>
+    <button (click)="cambiarFiltro('recolectadas')" 
+      [class]="filtroActivo === 'recolectadas' ? 'bg-white text-gray-800 shadow-sm' : 'text-gray-500 hover:text-gray-800'"
+      class="flex-1 text-center py-2 rounded-lg text-xs font-bold transition min-w-[90px]">
+      Recolectadas
+    </button>
+  </div>
+
+  @if (solicitudesFiltradas.length === 0) {
+    <div class="bg-white border border-gray-100 rounded-2xl p-12 text-center shadow-sm flex flex-col items-center justify-center min-h-[300px]">
+      <div class="w-16 h-16 bg-gray-50 text-gray-400 border border-gray-100 rounded-2xl flex items-center justify-center mb-4 text-2xl">
+        📦
+      </div>
+      <h3 class="text-sm font-bold text-gray-500 mb-6">
+        No hay registros en esta sección.
+      </h3>
+      <button routerLink="/publicar" class="bg-emerald-600 text-white text-xs font-bold py-3 px-6 rounded-xl hover:bg-emerald-700 transition shadow-md shadow-emerald-700/10 flex items-center gap-1.5">
+        ➕ Crear solicitud
+      </button>
+    </div>
+  } @else {
+    <div class="space-y-4">
+      @for (item of solicitudesFiltradas; track item.id) {
+        <div class="bg-white border border-gray-100 rounded-2xl p-5 shadow-sm hover:border-emerald-100 transition flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+          <div class="space-y-1.5">
+            <div class="flex items-center gap-2">
+              <span class="text-xs font-mono font-bold bg-gray-100 px-2 py-0.5 rounded text-gray-600">{{ item.id }}</span>
+              <span class="text-xs font-bold px-2 py-0.5 rounded-full capitalize"
+                [ngClass]="{
+                  'bg-blue-50 text-blue-700 border border-blue-100': item.estado === 'disponible',
+                  'bg-amber-50 text-amber-700 border border-amber-100': item.estado === 'asignada',
+                  'bg-emerald-50 text-emerald-700 border border-emerald-100': item.estado === 'recolectada'
+                }">
+                {{ item.estado }}
+              </span>
+            </div>
+            
+            <h4 class="text-sm font-bold text-gray-800">
+              Materiales: <span class="font-normal text-gray-600">{{ formatearMateriales(item.materiales) }}</span>
+            </h4>
+            
+            <p class="text-xs text-gray-500">📍 {{ item.direccion }} ({{ item.distrito | titlecase }})</p>
+            @if (item.notas) {
+               <p class="text-xs text-gray-400 italic">"{{ item.notas }}"</p>
+                }
+          </div>
+          
+          <div class="text-left sm:text-right border-t sm:border-t-0 pt-3 sm:pt-0 border-gray-50">
+            <span class="text-lg font-black text-emerald-600 block">{{ item.cantidad }} kg</span>
+            <span class="text-[10px] text-gray-400 block mt-0.5">{{ item.fecha | date:'dd/MM/yyyy' }}</span>
+          </div>
+        </div>
+      }
+    </div>
+  }
+
+</div>

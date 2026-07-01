@@ -1,0 +1,108 @@
+<div class="container mx-auto px-6 py-8 max-w-6xl">
+  
+  <!-- Banner Verde Principal Estilo image_cfee29 -->
+  <div class="bg-gradient-to-br from-emerald-700 to-emerald-800 rounded-3xl p-8 text-white relative overflow-hidden shadow-lg shadow-emerald-900/10 mb-8">
+    <div class="relative z-10 max-w-xl">
+      <div class="flex items-center gap-2 text-emerald-200 text-sm font-medium mb-3">
+        <span>🌱</span> Eco-Reciclaje Huancayo
+      </div>
+      <h1 class="text-3xl font-bold">¡Hola, {{ nombreUsuario }}!</h1>
+      <p class="text-emerald-100 text-sm leading-relaxed mb-6">
+        Conectamos vecinos con recicladores formales para una Huancayo más limpia y sostenible.
+      </p>
+      <button class="bg-white text-emerald-800 font-bold px-5 py-2.5 rounded-xl text-sm flex items-center gap-2 shadow-sm hover:bg-emerald-50 transition">
+        📍 Ver mapa de recolección
+      </button>
+    </div>
+    <!-- Detalle estético de fondo circular -->
+    <div class="absolute -right-10 -top-10 w-44 h-44 bg-emerald-600/30 rounded-full blur-2xl"></div>
+  </div>
+
+  <!-- Fila de Contadores Estadísticos Reactivos -->
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
+    <!-- Contador 1: Disponibles -->
+    <div class="bg-white border border-gray-100 p-6 rounded-2xl shadow-sm text-center">
+      <div class="w-10 h-10 bg-emerald-50 text-emerald-600 rounded-xl flex items-center justify-center mx-auto mb-3 text-lg">🕒</div>
+      <div class="text-3xl font-black text-gray-800">{{ totalDisponibles }}</div>
+      <div class="text-xs font-semibold text-gray-400 mt-1 uppercase tracking-wider">Disponibles</div>
+    </div>
+    
+    <!-- Contador 2: Recolectados -->
+    <div class="bg-white border border-gray-100 p-6 rounded-2xl shadow-sm text-center">
+      <div class="w-10 h-10 bg-blue-50 text-blue-600 rounded-xl flex items-center justify-center mx-auto mb-3 text-lg">📦</div>
+      <div class="text-3xl font-black text-gray-800">{{ totalRecolectados }}</div>
+      <div class="text-xs font-semibold text-gray-400 mt-1 uppercase tracking-wider">Recolectados</div>
+    </div>
+    
+    <!-- Contador 3: Kg Recuperados totales -->
+    <div class="bg-white border border-gray-100 p-6 rounded-2xl shadow-sm text-center">
+      <div class="w-10 h-10 bg-orange-50 text-orange-600 rounded-xl flex items-center justify-center mx-auto mb-3 text-lg">📈</div>
+      <div class="text-3xl font-black text-gray-800">{{ kilosRecuperados }}</div>
+      <div class="text-xs font-semibold text-gray-400 mt-1 uppercase tracking-wider">Kg recuperados</div>
+    </div>
+  </div>
+
+  <!-- Cabecera de Solicitudes Recientes -->
+  <div class="flex justify-between items-center mb-6">
+    <h3 class="text-lg font-bold text-gray-800">Solicitudes recientes</h3>
+    <a routerLink="/historial" class="text-xs font-bold text-emerald-600 hover:text-emerald-700 flex items-center gap-1">
+      Ver todas ➔
+    </a>
+  </div>
+
+  <!-- Zona de Listado de Solicitudes -->
+  <div class="space-y-4">
+    
+    <!-- Caso A: Si no hay ninguna solicitud creada en el sistema todavía -->
+    @if (solicitudesRecientes.length === 0) {
+      <div class="bg-white border border-dashed border-gray-200 rounded-2xl p-8 text-center text-gray-400 text-sm">
+        <p class="mb-3">No hay solicitudes recientes registradas en la ciudad.</p>
+        <button routerLink="/publicar" class="text-emerald-600 font-bold hover:underline text-xs">
+          ¡Crea una nueva solicitud aquí para empezar!
+        </button>
+      </div>
+    } @else {
+      
+      <!-- Caso B: Bucle que dibuja las solicitudes reales creadas mediante el formulario -->
+      @for (solicitud of solicitudesRecientes; track solicitud.id) {
+        <div class="bg-white border border-gray-100 p-5 rounded-2xl shadow-sm hover:shadow-md transition">
+          <div class="flex justify-between items-start mb-2">
+            <div>
+              <h4 class="font-bold text-gray-800 text-base font-mono">{{ solicitud.id }}</h4>
+              <p class="text-xs text-gray-400 flex items-center gap-1 mt-0.5">
+                📍 {{ solicitud.direccion }} ({{ solicitud.distrito | titlecase }})
+              </p>
+            </div>
+            
+            <!-- Etiqueta de estado dinámica con los colores exactos de tu boceto -->
+            <span class="text-xs font-bold px-3 py-1 rounded-full capitalize"
+              [ngClass]="{
+                'bg-emerald-50 text-emerald-700 border border-emerald-200': solicitud.estado === 'disponible',
+                'bg-amber-50 text-amber-700 border border-amber-200': solicitud.estado === 'asignada',
+                'bg-gray-100 text-gray-600 border border-gray-200': solicitud.estado === 'recolectada'
+              }">
+              ● {{ solicitud.estado }}
+            </span>
+          </div>
+
+          <!-- Tags de materiales de la solicitud -->
+          <div class="flex flex-wrap gap-2 my-3">
+            @for (material of solicitud.materiales; track material) {
+              <span class="bg-blue-50 text-blue-600 border border-blue-100 text-xs px-2.5 py-1 rounded-lg font-medium">
+                {{ material }}
+              </span>
+            }
+          </div>
+
+          <!-- Pie de la tarjeta con peso estimado y hora exacta -->
+          <div class="flex justify-between items-center text-xs text-gray-400 border-t border-gray-50 pt-3 mt-2">
+            <span class="flex items-center gap-1">⚖️ ~{{ solicitud.cantidad }} kg</span>
+            <span class="flex items-center gap-1">🕒 {{ solicitud.fecha | date:'dd MMM, h:mm a' }}</span>
+          </div>
+        </div>
+      }
+
+    }
+    
+  </div>
+</div>
